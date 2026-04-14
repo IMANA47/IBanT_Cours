@@ -1,0 +1,66 @@
+Note de cours Arduino
+
+2- PIC 16FB77
+Nous allons utiliser PIC 16FB77
+
+1. La configuration minimale du PIC 16F877
+Le PIC 16F877 contient 5 broches
+ Broche A : 6 port
+ Broche B : 8 port
+ Broche C : 8 port
+ Broche D : 8 port
+ Broche E : 3 port
+Contient 8 suceptible d'accepter les entre analogique
+les voici : 
+
+RA0-->AN0
+RA1-->AN1
+RA4-->AN2
+RA4-->AN3
+RA5-->AN4
+RA0-->AN5
+RE1-->AN6
+RE2-->AN7
+
+
+2. la programmation de PIC 16F877
+Les du langage C adapter au microcontrole PIC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
