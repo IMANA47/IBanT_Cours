@@ -26,6 +26,17 @@ RE2-->AN7
 2. la programmation de PIC 16F877
 Les du langage C adapter au microcontrole PIC
 
+Les fonction de langage C adaptees au microcontroleur PIC.
+
+a- Affectation de sorties numeriques en peut utiliser plusieurs fonction
+Fonction 1 :
+b- temporisation 
+Pour faire de la temporisation ou temporiser en utilise la fonction Delay
+exemple :
+Delay_ms(700) : Temporisation de 700 ms
+Delay_us(800); Temporisation de microseconde
+
+
 
 
 
