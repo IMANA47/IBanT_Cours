@@ -1,5 +1,5 @@
-青TP1
-   青main  0/31  Ram=1
+青Application 2
+   青main  0/57  Ram=1
       団@cinit1  (Inline)  Ram=0
       団@delay_ms1  0/20  Ram=1
       青@delay_ms1  0/20  Ram=1

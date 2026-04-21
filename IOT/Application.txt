@@ -1,0 +1,8 @@
+Donner le role de chaque composent 
+
+Le microcontroleur jouer le role de cerveau
+
+Soit le montage suivante :
+1 -Programme permet de clinioter les 4 LED
+2- Programme permet de clinuoter 2 LED alternativement
+3- Programme permet de cheniller 4 les LED
