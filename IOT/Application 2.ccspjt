@@ -14,3 +14,6 @@ Type=4
 [Units]
 Count=1
 1=Application 2 (main)
+[Opened Files]
+1=Application 2.c
+2=
