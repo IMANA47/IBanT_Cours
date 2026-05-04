@@ -24,7 +24,7 @@ Le PIC 16F877 contient 5 broches
 
 Contient 8 suceptible d'accepter les entre analogique
 
-les voici : 
+les voici :
 
 
 
@@ -62,7 +62,7 @@ a- Affectation de sorties numeriques en peut utiliser plusieurs fonction
 
 Fonction 1 :
 
-b- temporisation 
+b- temporisation
 
 Pour faire de la temporisation ou temporiser en utilise la fonction Delay
 
@@ -78,7 +78,7 @@ Delay\_us(800); Temporisation de microseconde
 
 Le microcontrôleur traite les information et donne les instruction au programme pour faire des action allumage éteindre.(Ces comme l'unite centrale)
 
-La  resistance : Son role est de protéger LED, elle permet de limite l'intensité traversant la LED 
+La  resistance : Son role est de protéger LED, elle permet de limite l'intensité traversant la LED
 
 
 
@@ -86,13 +86,13 @@ La  resistance : Son role est de protéger LED, elle permet de limite l'intensit
 
 
 
-Zone 1 
+Zone 1
 
-1 ere zone zone de la directive du processeur 
+1 ere zone zone de la directive du processeur
 
 dans cette zone chaque ligne commence par #
 
-Et se ne termine pas par un point virgule (;) 
+Et se ne termine pas par un point virgule (;)
 
 
 
@@ -110,7 +110,7 @@ Et se ne termine pas par un point virgule (;)
 
 Ligne 3
 
-Cette fonction permet de introduire la fréquence fusible 
+Cette fonction permet de introduire la fréquence fusible
 
 Ces la fréquence lie a l'alimentation du circuit
 
@@ -128,7 +128,7 @@ La Zone 2 ses zone sont obligatoire
 
 
 
-Zone de declaration de variable 
+Zone de declaration de variable
 
 Pour variable d'entrer comme les interrupteur en utilise la fonction int
 
@@ -144,7 +144,7 @@ La zone 3 de programme principale :
 
 Remarque :
 
-Lorsque ce programme est televerser dans un microcontroleur , il execute une seul fois meme s'il ya des modification 
+Lorsque ce programme est televerser dans un microcontroleur , il execute une seul fois meme s'il ya des modification
 
 . Pour resoudre ce probleme en doit ajouter une boucle qui est la boucle while le contenue de la boucle vas t'être répéter tant la condition est juste
 
@@ -152,57 +152,15 @@ Lorsque ce programme est televerser dans un microcontroleur , il execute une seu
 
 
 
+Out fonction permet de activer ou désactiver plusieurs ports au meme moment
+
+output\_B(0b10101011); permet d'activer les ports B0, B1, B3, B5, B7 et desactive B6, B4, B2
 
 
 
+O desactiver
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1 activer
 
 
 

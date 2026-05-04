@@ -1,0 +1,140 @@
+CCS PCM C Compiler, Version 5.015, 5967               28-Apr-26 13:55
+
+               Filename:   I:\Imana\IBanT_Cours\IOT\TP4.lst
+
+               ROM used:   91 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include<16F877.h> 
+.................... //////////// Standard Header file for the PIC16F877 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=10M) 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  03
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  3C
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+.................... #fuses HS 
+....................  
+.................... main(){ 
+0019:  MOVF   03,W
+001A:  ANDLW  1F
+001B:  MOVWF  03
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  BCF    03.7
+.................... while(1){ 
+.................... output_B(0b00001111); 
+0022:  CLRF   06
+0023:  MOVLW  0F
+0024:  BCF    03.5
+0025:  MOVWF  06
+.................... output_high(pin_B0); 
+0026:  BSF    03.5
+0027:  BCF    06.0
+0028:  BCF    03.5
+0029:  BSF    06.0
+.................... output_high(pin_B1); 
+002A:  BSF    03.5
+002B:  BCF    06.1
+002C:  BCF    03.5
+002D:  BSF    06.1
+.................... output_high(pin_B2); 
+002E:  BSF    03.5
+002F:  BCF    06.2
+0030:  BCF    03.5
+0031:  BSF    06.2
+.................... output_high(pin_B3); 
+0032:  BSF    03.5
+0033:  BCF    06.3
+0034:  BCF    03.5
+0035:  BSF    06.3
+.................... delay_ms(500); 
+0036:  MOVLW  02
+0037:  MOVWF  21
+0038:  MOVLW  FA
+0039:  MOVWF  22
+003A:  CALL   004
+003B:  DECFSZ 21,F
+003C:  GOTO   038
+.................... output_B(0b00000000); 
+003D:  BSF    03.5
+003E:  CLRF   06
+003F:  BCF    03.5
+0040:  CLRF   06
+.................... output_low(pin_B0); 
+0041:  BSF    03.5
+0042:  BCF    06.0
+0043:  BCF    03.5
+0044:  BCF    06.0
+.................... output_low(pin_B1); 
+0045:  BSF    03.5
+0046:  BCF    06.1
+0047:  BCF    03.5
+0048:  BCF    06.1
+.................... output_low(pin_B2); 
+0049:  BSF    03.5
+004A:  BCF    06.2
+004B:  BCF    03.5
+004C:  BCF    06.2
+.................... output_low(pin_B3); 
+004D:  BSF    03.5
+004E:  BCF    06.3
+004F:  BCF    03.5
+0050:  BCF    06.3
+.................... delay_ms(500); 
+0051:  MOVLW  02
+0052:  MOVWF  21
+0053:  MOVLW  FA
+0054:  MOVWF  22
+0055:  CALL   004
+0056:  DECFSZ 21,F
+0057:  GOTO   053
+0058:  BSF    03.5
+0059:  GOTO   022
+.................... } 
+.................... } 
+005A:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F72   HS NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

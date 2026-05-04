@@ -1,20 +1,19 @@
 [PROJECT]
-Target=Application 2.hex
+Target=TP3.hex
 Processor_Text=PIC16F877
 CCSVersion=5.015
 Compiler=PCM
 [Target Data]
-FileList=Application 2.c
+FileList=TP3.c
 [Directories]
 Include=I:\Club informatique\PICC\Devices\;I:\Club informatique\PICC\Drivers\
-[Application 2.c]
+[TP3.c]
 Type=4
 [mru-list]
-1=Application 2.c
-[Opened Files]
-1=Application 2.c
-2=Application3.c
-3=
+1=TP3.c
 [Units]
 Count=1
-1=Application 2 (main)
+1=TP3 (main)
+[Opened Files]
+1=TP3.c
+2=

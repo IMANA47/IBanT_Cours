@@ -1,0 +1,14 @@
+#include<16F877.h>
+#use delay(clock=10M)
+#fuses HS
+
+main(){
+while(1){
+output_B(0b00001111);
+
+delay_ms(500);
+
+output_B(0b00000000);
+delay_ms(500);
+}
+}

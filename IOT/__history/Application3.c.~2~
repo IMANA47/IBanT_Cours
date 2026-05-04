@@ -1,0 +1,18 @@
+#include<16F877.h>
+#use delay(clock=20M)
+#fuses HS
+
+main(){
+while(1){
+output_high(pin_B0);
+output_high(pin_B1);
+output_high(pin_B2);
+output_high(pin_B3);
+delay_ms(500);
+output_low(pin_B0);
+output_low(pin_B1);
+output_low(pin_B2);
+output_low(pin_B3);
+delay_ms(500);
+}
+}
