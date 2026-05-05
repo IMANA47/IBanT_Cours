@@ -1,19 +1,16 @@
 [PROJECT]
-Target=TP4_1.hex
-Processor_Text=PIC16F877
+Target=true_code_feu_signale.hex
+Processor_Text=PIC16F877A
 CCSVersion=5.015
 Compiler=PCM
 [Target Data]
-FileList=TP4_1.c
+FileList=true_code_feu_signale.c
 [Directories]
 Include=I:\Club informatique\PICC\Devices\;I:\Club informatique\PICC\Drivers\
-[TP4_1.c]
+[true_code_feu_signale.c]
 Type=4
 [mru-list]
-1=TP4_1.c
+1=true_code_feu_signale.c
 [Units]
 Count=1
-1=TP4_1 (main)
-[Opened Files]
-1=TP4_1.c
-2=
+1=true_code_feu_signale (main)
