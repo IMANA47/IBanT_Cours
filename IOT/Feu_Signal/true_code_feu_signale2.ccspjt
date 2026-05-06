@@ -1,0 +1,16 @@
+[PROJECT]
+Target=true_code_feu_signale2.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=true_code_feu_signale2.c
+[Directories]
+Include=I:\Club informatique\PICC\Devices\;I:\Club informatique\PICC\Drivers\
+[true_code_feu_signale2.c]
+Type=4
+[mru-list]
+1=true_code_feu_signale2.c
+[Units]
+Count=1
+1=true_code_feu_signale2 (main)

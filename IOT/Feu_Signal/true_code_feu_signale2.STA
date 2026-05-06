@@ -1,0 +1,48 @@
+
+ROM used:   137/8192 (2%)
+            137/8192 (2%) including unused fragments
+
+            0.2 Average locations per line
+            5.7 Average locations per statement
+
+RAM used:   6/368 (2%) at main() level
+            7/368 (2%) worst case
+
+Stack used: 1 worst case (1 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   69    24 100  true_code_feu_signale2.c
+  671     0   0  ..\..\..\..\Club informatique\PICC\Devices\16F877A.h
+----- -----
+  740    24 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20  15    1             @delay_ms1
+0    113  82    1   752  2.4  main
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              24
+    Comments                136
+    Volume (V)              757
+    Difficulty (D)          2.3
+    Effort to implement (E) 1775
+    Time to implement (T)   2 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    50
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   133  1911  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

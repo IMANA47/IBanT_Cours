@@ -52,21 +52,33 @@ Et se ne termine pas par un point virgule (;)
 Ligne #include<16F877.h>
 
 
+II - Affectation des entres numériques
+
+1- Unique entree numérique:
+Pour affectation d'une entree numérique en utilise la fonction suivant y = input(PIN_XX);
+
+y = ces la variable
+X: La broche
+X: Le numéro de port
+
+Exemple :
+y = input(PIN_A2);
 
 
 
+Lorsque un system contient entree et sortie il faut obligatoirement configurer les ports ou les broches.
+La configuration est une simple operation logique qui consiste a affecter 1 logique au port utilise a l'entrer et 0 logique au port utilise a la sortie .
+La fonction utilise est :
 
+B7	B6	B5	B4	B3	B2	B1
+1	0	0	1	0	1	1
 
-
-
-
-
-
-
-
-
-
-
+Set_tris_X(Valeur);
+Exemple : 
+Set_tris_X(0b10101011)
+Set_tris_B(171)
+Set_tris_B(AXB)
+Les ports B0, B1, B5, B7 sont 
 
 
 
