@@ -1,55 +1,47 @@
-# Prerequisites
-*.d
+# =========================
+# PROTEUS / MPLAB / EMBEDDED
+# =========================
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Backups
+Project Backups/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Historique automatique
+__history/
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
+# Fichiers générés compilation
+*.STA
+*.cof
+*.sym
+*.tre
+*.xsym
+*.esym
+*.err
+*.lst
 *.hex
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Autosave Proteus
+*Autosaved*.pdsprj
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Workspace utilisateur
+*.workspace
 
-# debug information files
-*.dwo
+# =========================
+# PYTHON
+# =========================
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# =========================
+# VSCODE
+# =========================
+
+.vscode/
+
+# =========================
+# WINDOWS
+# =========================
+
+Thumbs.db
+Desktop.ini

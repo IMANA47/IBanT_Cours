@@ -10,10 +10,17 @@ set_tris_B(0b00000000);
 while(1){
 
 n = input(PIN_A0);
-if (n==0)
-output_B(0);
-else
-output_B(1);
-}
 
+if(n==1)
+{
+output_high(PIN_B0);
+delay_ms(500);
+output_low(PIN_B0);
+delay_ms(500);
+}
+else
+{
+output_B(0);
+}
+}
 }

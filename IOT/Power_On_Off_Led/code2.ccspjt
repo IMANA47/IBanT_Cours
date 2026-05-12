@@ -1,0 +1,16 @@
+[PROJECT]
+Target=code2.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=code2.c
+[Directories]
+Include=I:\Club informatique\PICC\Devices\;I:\Club informatique\PICC\Drivers\
+[code2.c]
+Type=4
+[mru-list]
+1=code2.c
+[Units]
+Count=1
+1=code2 (main)
