@@ -1,19 +1,19 @@
 [PROJECT]
-Target=true_code_feu_signale2.hex
+Target=code.hex
 Processor_Text=PIC16F877A
 CCSVersion=5.015
 Compiler=PCM
 [Target Data]
-FileList=true_code_feu_signale2.c
+FileList=code.c
 [Directories]
 Include=I:\Club informatique\PICC\Devices\;I:\Club informatique\PICC\Drivers\
-[true_code_feu_signale2.c]
+[code.c]
 Type=4
 [mru-list]
-1=true_code_feu_signale2.c
+1=code.c
 [Units]
 Count=1
-1=true_code_feu_signale2 (main)
+1=code (main)
 [Opened Files]
-1=true_code_feu_signale2.c
+1=code.c
 2=
