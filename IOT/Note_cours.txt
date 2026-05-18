@@ -76,7 +76,7 @@ B7	B6	B5	B4	B3	B2	B1
 Set_tris_X(Valeur);
 Exemple : 
 Set_tris_X(0b10101011)
-Set_tris_B(171)
+Set_tris_B(171)op
 Set_tris_B(AXB)
 Les ports B0, B1, B5, B7 sont 
 
