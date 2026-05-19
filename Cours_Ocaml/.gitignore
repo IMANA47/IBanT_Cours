@@ -1,0 +1,29 @@
+# Ignorer tous les dossiers de build dune
+_build/
+
+# Ignorer les binaires et objets compilés
+*.exe
+*.bc
+*.o
+*.cm*
+*.annot
+*.cmt
+*.cmi
+*.cmo
+*.cmx
+*.cmxa
+*.a
+
+# Fichiers temporaires (éditeurs, OS)
+*.swp
+*.swo
+*~
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Config VS Code
+.vscode/
