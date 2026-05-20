@@ -1,0 +1,8 @@
+Le contructeur est une type de methode qui porte le meme non que la classe et na pas le meme type de retour.
+
+Le polymorphisme 
+
+
+This fait reference a l'object courant
+
+Tout les classe java herite d'une super classe Object
