@@ -4,40 +4,44 @@ package com.gestionetude.entities;
 public class Etudiant {
     // Attributs privés (encapsulation)
     private String nom;
+    private String prenom;
     private int age;
-    private double moyenne;
 
     // Constructeur
-    public Etudiant(String nom, int age, double moyenne) {
+    public Etudiant(String nom, String prenom, int age) {
         this.nom = nom;
+        this.prenom = prenom;
         this.age = age;
-        this.moyenne = moyenne;
     }
 
     public String getNom() {
         return nom;
     }
-    
-    public int getAge() {
-        return age;
+
+    public String getPrenom() {
+        return prenom;
     }
 
-    public double getMoyenne() {
-        return moyenne;
+    public int getAge() {
+        return age;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
 
-    public void setMoyenne(double moyenne) {
-        this.moyenne = moyenne;
+    public String toString() {
+        return "Vos informations sont les suivantes :" +
+                nom +" "+ age+ "ans";
     }
-    
 /* 
     public Etudiant(String nom, int age, double moyenne) {
         if (nom == null || nom.isEmpty()) {
