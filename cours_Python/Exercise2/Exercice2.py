@@ -1,4 +1,9 @@
 """
+Autor : Nsengimana Francois
+Level : Licence 2
+Speciality : Developpement Application
+Date : 22/05/2026
+
 SUPER U propose une réduction sur le montant total d'un achat selon
 les conditions suivantes :
 
