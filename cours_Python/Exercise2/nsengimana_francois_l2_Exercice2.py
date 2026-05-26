@@ -49,6 +49,6 @@ for i in range(nombre_articles_achete):
 
 
 # Affichage
-print(f"Montant total avant réduction : {montant_total}")
+print(f"Montant total avant réduction : {montant_total} FCFA")
 print(f"Pourcentage de réduction appliqué : {pourcentage_reduction}%")
-print(f"Montant à payer après réduction : {montant_apres_reduction}")
+print(f"Montant à payer après réduction : {montant_apres_reduction} FCFA")
