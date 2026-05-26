@@ -39,10 +39,10 @@ for i in range(nombre_articles_achete):
     elif 10100 <= montant_total <=20000:
         pourcentage_reduction = 10
         
-    elif 20100<= montant_tota <=50000:
+    elif 20100<= montant_total <=50000:
         pourcentage_reduction = 15
         
-    elif somme >50000:
+    elif montant_total >50000:
         pourcentage_reduction = 20
     
     montant_apres_reduction = montant_total - (montant_total * pourcentage_reduction / 100)   
