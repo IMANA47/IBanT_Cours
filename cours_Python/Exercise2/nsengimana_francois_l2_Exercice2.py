@@ -10,7 +10,7 @@ les conditions suivantes :
 
 Écrire un programme qui :
 
-1. Demande à l'utilisateur de saisir le nombre d'articles achetés.
+1.Demande à l'utilisateur de saisir le nombre d'articles achetés.
 2.Utilise une boucle for pour saisir le prix de chaque article.
 3.Calcule le montant total.
 4.Utilise une structure if / elif / else pour déterminer le taux de
