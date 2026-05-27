@@ -5,4 +5,5 @@ Le polymorphisme
 
 This fait reference a l'object courant
 
-Tout les classe java herite d'une super classe Object
+Tout les classe java herite d'une super classe Object(ces le quelle) la classe mere
+L'heritage multiple n'existe pas en java
