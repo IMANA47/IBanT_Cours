@@ -34,6 +34,7 @@ Juste une information supplémentaire concernant l’exercice « Mini distribute
 """
 
 solde_compte =0
+
 print("Mini distributeur Bancaire")
 choix_service = input("""
 1- voir son solde
@@ -46,7 +47,7 @@ Veuillez choisir un service :
 
 while True:
     if choix_service == "1":
-        print("Votre solde est de : ", solde_compte)
+        print(f"Votre solde est de : {solde_compte} FCFA")
 
 # si l'utilisateur choisit 2
     elif choix_service == "2":
