@@ -1,32 +1,29 @@
-package com.gestionetude.entities;
-
-import com.gestionetude.entities.Etudiant;
+package src.gestionetud.entities;
 
 public class Composer {
+
     private int id;
     private double note;
     private Etudiant etudiant;
     private Matiere matiere;
 
-    // constructeur par defaut
-
-
+    //constructeur par defaut
     public Composer() {
     }
 
-    // constructeur par paramètre
-
-
-    public Composer(int id, double note, Etudiant etudiant, Matiere matiere) {
+    //constructeur avec parametres
+    public Composer(int id, double note, Matiere matiere, Etudiant etudiant) {
         this.id = id;
         this.note = note;
-        this.etudiant = etudiant;
         this.matiere = matiere;
-    }
-    // getters et setters
+        this.etudiant = etudiant;
 
+    }
+
+    //Getters et setters
     public int getId() {
         return id;
+
     }
 
     public void setId(int id) {
@@ -56,4 +53,15 @@ public class Composer {
     public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
     }
+
+    @Override
+    public String toString() {
+        return "Composer{" +
+                "id=" + id +
+                ", note=" + note +
+                ", etudiant=" + etudiant +
+                ", matiere=" + matiere +
+                '}';
+    }
 }
+
