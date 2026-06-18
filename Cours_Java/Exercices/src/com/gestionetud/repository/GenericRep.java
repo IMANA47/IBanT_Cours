@@ -1,4 +1,4 @@
-package src.gestionetud.repository;
+package com.gestionetud.repository;
 
 import java.util.List;
 

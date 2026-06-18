@@ -1,0 +1,13 @@
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\Main.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\config\ConnexionBD.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\entities\Composer.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\entities\Etudiant.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\entities\Matiere.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\repository\ComposerRepository.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\repository\EtudiantRepository.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\repository\GenericRep.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\repository\MatiereRepository.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\Service\ComposerService.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\Service\EtudiantService.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\Service\MatiereService.java
+i:\Imana\IBanT_Cours\Cours_Java\Exercices\src\com\gestionetud\test\Test.java

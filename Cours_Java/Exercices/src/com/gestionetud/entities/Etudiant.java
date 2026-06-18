@@ -1,4 +1,4 @@
-package src.gestionetud.entities;
+package com.gestionetud.entities;
 
 public class Etudiant {
     private int id;

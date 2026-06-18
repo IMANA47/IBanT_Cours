@@ -1,6 +1,6 @@
-package src.gestionetud.repository;
+package com.gestionetud.repository;
 
-import src.gestionetud.entities.Composer;
+import com.gestionetud.entities.Composer;
 
 import java.util.List;
 

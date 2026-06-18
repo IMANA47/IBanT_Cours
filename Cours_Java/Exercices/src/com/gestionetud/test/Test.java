@@ -1,9 +1,8 @@
-package src.gestionetud.test;
+package com.gestionetud.test;
 
-import src.gestionetud.config.ConnexionBD;
-import src.gestionetud.entities.Composer;
-import src.gestionetud.entities.Etudiant;
-import src.gestionetud.entities.Matiere;
+import com.gestionetud.entities.Composer;
+import com.gestionetud.entities.Etudiant;
+import com.gestionetud.entities.Matiere;
 
 public class Test {
     public static void main (String[] args){
@@ -34,7 +33,10 @@ public class Test {
         //etud.prenom = "Jean";
         //System.out.println(etud.getId());
         //System.out.println(etud.getNom());
-        ConnexionBD.getInstance();
+        //ConnexionBD.getInstance();
+
+
+
 
 
 

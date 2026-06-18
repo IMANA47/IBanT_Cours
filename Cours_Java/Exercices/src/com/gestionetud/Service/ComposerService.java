@@ -1,4 +1,4 @@
-package src.gestionetud.Service;
+package com.gestionetud.Service;
 
 public class ComposerService {
 

@@ -1,7 +1,7 @@
-package src.gestionetud.repository;
+package com.gestionetud.repository;
 
-import src.gestionetud.config.ConnexionBD;
-import src.gestionetud.entities.Matiere;
+import com.gestionetud.config.ConnexionBD;
+import com.gestionetud.entities.Matiere;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
 
     @Override
     public void save(Matiere entity) {
-        String sql = "INSERT INTO matiere(code, libelle)VALUES(??)";
+        String sql = "INSERT INTO matiere(code, libelle) VALUES(?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getCode());

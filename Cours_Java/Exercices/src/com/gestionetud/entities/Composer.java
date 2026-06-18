@@ -1,4 +1,7 @@
-package src.gestionetud.entities;
+package com.gestionetud.entities;
+
+import com.gestionetud.entities.Etudiant;
+import com.gestionetud.entities.Matiere;
 
 public class Composer {
 

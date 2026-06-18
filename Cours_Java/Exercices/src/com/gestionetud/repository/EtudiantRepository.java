@@ -1,6 +1,6 @@
-package src.gestionetud.repository;
+package com.gestionetud.repository;
 
-import src.gestionetud.entities.Etudiant;
+import com.gestionetud.entities.Etudiant;
 
 import java.util.List;
 
