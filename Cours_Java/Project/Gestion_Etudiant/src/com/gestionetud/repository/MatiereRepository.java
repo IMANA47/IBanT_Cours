@@ -1,10 +1,12 @@
 package com.gestionetud.repository;
 
 import com.gestionetud.entities.Matiere;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 public class MatiereRepository implements GenericRep<Matiere,Integer> {
+    private int connection;
 
 
     @Override
@@ -29,6 +31,19 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
 
     @Override
     public List<Matiere> findAll() {
-        return List.of();
+        String sql = "SELECT * FROM matiere";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet result = ps.executeQuery();
+        while (result.next()){
+            int id =result.getInt("idm");
+            String code = result.getString("code");
+            String libelle = result.getString("libelle");
+            matieres.add(new Matiere(id,code,libelle));
+        }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matieres;
     }
 }

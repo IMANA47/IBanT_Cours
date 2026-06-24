@@ -15,6 +15,9 @@ public class Matiere {
         this.libelle = libelle;
     }
 
+    public Matiere(int id, String code) {
+    }
+
     public int getId() {
         return id;
     }
