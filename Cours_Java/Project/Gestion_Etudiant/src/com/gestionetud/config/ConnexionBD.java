@@ -2,7 +2,6 @@ package com.gestionetud.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,16 +18,7 @@ public class ConnexionBD {
             try {
                 //Recuperer les parametres du fichier
                 Properties prop = new Properties();
-                InputStream stream = ConnexionBD.class.getResourceAsStream("/com/gestionetud/data.properties");
-                if (stream != null) {
-                    try (InputStream in = stream) {
-                        prop.load(in);
-                    }
-                } else {
-                    try (FileInputStream fileStream = new FileInputStream("src/com/gestionetud/data.properties")) {
-                        prop.load(fileStream);
-                    }
-                }
+                prop.load(new FileInputStream("data.properties"));
                 url = prop.getProperty("dburl");
                 user = prop.getProperty("user");
                 pass = prop.getProperty("password");
@@ -36,7 +26,7 @@ public class ConnexionBD {
             }catch (SQLException | IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("connection established " + url);
+            System.out.println("connection established" + url);
 
 
         }

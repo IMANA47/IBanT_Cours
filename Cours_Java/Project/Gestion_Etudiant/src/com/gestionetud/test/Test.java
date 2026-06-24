@@ -1,10 +1,10 @@
 package com.gestionetud.test;
 
+import com.gestionetud.config.ConnexionBD;
 import com.gestionetud.entities.Composer;
 import com.gestionetud.entities.Etudiant;
 import com.gestionetud.entities.Matiere;
 
-import com.gestionetud.repository.MatiereRepository;
 public class Test {
     public static void main (String[] args){
         Etudiant etud =new Etudiant(3,"NGANGA","Dorian",25);
@@ -13,10 +13,7 @@ public class Test {
         Composer composer1=new Composer(1,15,matiere,etud);
         Composer composer2=new Composer(2,12,matiere2,etud);
 
-        MatiereRepository matiereRepository = new MatiereRepository();
-        matiereRepository.save(matiere);
-
-        /**System.out.println(composer1);
+        System.out.println(composer1);
         System.out.println(composer2);
 
         //Autre affichage
@@ -37,10 +34,7 @@ public class Test {
         //etud.prenom = "Jean";
         //System.out.println(etud.getId());
         //System.out.println(etud.getNom());
-        //ConnexionBD.getInstance();
-**/
-
-
+        ConnexionBD.getInstance();
 
 
 

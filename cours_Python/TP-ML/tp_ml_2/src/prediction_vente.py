@@ -13,7 +13,8 @@ import matplotlib.pyplot as plt
 
 
 # chargement dataset
-df = pd.read_csv("../data/SalesDataset.csv", index_col=0)
+#df = pd.read_csv("../data/SalesDataset.csv", index_col=0)
+df = pd.read_csv("data/SalesDataset.csv")
 
 # vérification des colonnes (sécurité)
 required_cols = ['Total Amount', 'Quantity', 'Price per Unit']
