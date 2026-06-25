@@ -31,12 +31,12 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
 
     @Override
     public void update(Matiere entity) {
-        String sql = "update matiere set code = ?,libelle = ? where idm = ?";
+        String sql = "update matiere set code = ?,libelle = ? where id_matiere = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getCode());
             ps.setString(2, entity.getLibelle());
-            ps.setInt(3,entity.getId());
+            ps.setInt(3,entity.getId_matiere());
             ps.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
@@ -45,12 +45,12 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
-        String sql = "delete from matiere where idm = ?";
+    public void delete(Integer id_matiere) {
+        String sql = "delete from matiere where id_matiere = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1,id);
+            ps.setInt(1,id_matiere);
             ps.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
@@ -60,14 +60,14 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
 
     @Override
     public Matiere findById(Integer id) {
-        Matiere matiere = new Matiere();zaqerstyuioupoiouiyutyrt
-        String sql = "select * from matiere where idm = ? ";
+        Matiere matiere = new Matiere();
+        String sql = "select * from matiere where id_matiere = ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1,id);
             ResultSet result = ps.executeQuery();
             if (result.next()){
-                matiere = new Matiere(result.getInt("idm"),
+                matiere = new Matiere(result.getInt("id_matiere"),
                         result.getString("code"),
                         result.getString("libelle"));
 
@@ -87,7 +87,7 @@ public class MatiereRepository implements GenericRep<Matiere,Integer> {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet result = ps.executeQuery();
             while (result.next()){
-                matieres.add(new Matiere(result.getInt("idm"),
+                matieres.add(new Matiere(result.getInt("id_matiere"),
                         result.getString("code"),
                         result.getString("libelle")));
 

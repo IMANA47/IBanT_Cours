@@ -2,10 +2,10 @@ package com.gestionetud.entities;
 
 public class Etudiant {
 
-    private int id;
+    private int id_etudiant;
     private String nom;
     private String prenom;
-    private String age;
+    private int age;
 
     //construteur par defaut
 
@@ -15,8 +15,8 @@ public class Etudiant {
     //construteur par paramètre
 
 
-    public Etudiant(int id, String nom, String prenom, String age) {
-        this.id = id;
+    public Etudiant(int id_etudiant, String nom, String prenom, int age) {
+        this.id_etudiant = id_etudiant;
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
@@ -25,12 +25,12 @@ public class Etudiant {
     //Getters et Setters
 
 
-    public int getId() {
-        return id;
+    public int getId_etudiant() {
+        return id_etudiant;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_etudiant(int id_etudiant) {
+        this.id_etudiant = id_etudiant;
     }
 
     public String getNom() {
@@ -49,16 +49,16 @@ public class Etudiant {
         this.prenom = prenom;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
     @Override
     public String toString() {
-        return id +","+nom+","+prenom+","+age+" ans";
+        return id_etudiant +","+nom+","+prenom+","+age+" ans";
     }
 }

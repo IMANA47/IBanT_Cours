@@ -1,8 +1,6 @@
 package com.gestionetud.test;
 
-import com.gestionetud.config.ConnexionBD;
 import com.gestionetud.entities.Composer;
-import com.gestionetud.entities.Etudiant;
 import com.gestionetud.entities.Matiere;
 import com.gestionetud.repository.MatiereRepository;
 
@@ -23,8 +21,8 @@ public class Test {
         System.out.println("Matiere 2: " + composer2.getMatiere().getCode() + "" + composer2.getNote());
         System.out.println("Moyenne :" + (composer1.getNote() + composer2.getNote()) / 2);
         System.out.println(etud);
-        etud.setId(1);
-        System.out.println(etud.getId());
+        etud.setId_etudiant(1);
+        System.out.println(etud.getId_etudiant());
 
         //System.out.println(etud);
         //etud.setId(1);

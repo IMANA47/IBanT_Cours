@@ -1,10 +1,17 @@
 package com.gestionetud.repository;
 
+import com.gestionetud.config.ConnexionBD;
 import com.gestionetud.entities.Composer;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class ComposerRepository implements GenericRep<Composer,Integer>{
+    private final Connection connection;
+
+    public ComposerRepository() {
+        this.connection = ConnexionBD.getInstance();
+    }
     @Override
     public void save(Composer entity) {
 
