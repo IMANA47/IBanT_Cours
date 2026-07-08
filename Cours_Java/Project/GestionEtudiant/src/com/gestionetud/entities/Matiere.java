@@ -1,47 +1,79 @@
 package com.gestionetud.entities;
 
-public class Etudiant {
-    private int id_matiere;
+import java.util.Objects;
+
+/**
+ * Représente une matière d'enseignement.
+ */
+public class Matiere {
+    private int idMatiere;
     private String code;
     private String libelle;
 
-    // constructeur par defaut
+    /**
+     * Constructeur par défaut.
+     */
     public Matiere() {
-
     }
-    // constructeur par paramètre
 
-    public Matiere(int id_matiere, String code, String libelle) {
-        this.id_matiere = id_matiere;
+    /**
+     * Constructeur avec paramètres.
+     *
+     * @param idMatiere Identifiant unique de la matière
+     * @param code      Code abrégé de la matière
+     * @param libelle   Libellé/nom descriptif de la matière
+     */
+    public Matiere(int idMatiere, String code, String libelle) {
+        this.idMatiere = idMatiere;
         this.code = code;
         this.libelle = libelle;
     }
 
-    public int getId_matiere() {
-        return id_matiere;
+    public int getIdMatiere() {
+        return idMatiere;
     }
-    public void setId_matiere(int id_matiere) {
-        this.id_matiere = id_matiere;
+
+    public void setIdMatiere(int idMatiere) {
+        this.idMatiere = idMatiere;
     }
+
     public String getCode() {
         return code;
     }
+
     public void setCode(String code) {
         this.code = code;
     }
+
     public String getLibelle() {
         return libelle;
     }
+
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matiere matiere = (Matiere) o;
+        return idMatiere == matiere.idMatiere &&
+                Objects.equals(code, matiere.code) &&
+                Objects.equals(libelle, matiere.libelle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idMatiere, code, libelle);
+    }
+
+    @Override
     public String toString() {
         return "Matiere{" +
-                "id=" + id_matiere +
-                ", code=" + code + '\''+
-                ", libelle=" + libelle + '\''+
+                "idMatiere=" + idMatiere +
+                ", code='" + code + '\'' +
+                ", libelle='" + libelle + '\'' +
                 '}';
     }
 }
