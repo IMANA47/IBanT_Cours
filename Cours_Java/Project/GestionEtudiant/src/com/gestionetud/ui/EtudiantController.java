@@ -8,246 +8,417 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
- * Contrôleur JavaFX pour la gestion de l'interface des étudiants.
+ * Contrôleur JavaFX pour la vue de gestion des étudiants.
+ * <p>
+ * Utilise exactement :
+ * <ul>
+ *   <li>{@link EtudiantService#getAllEtudiants()} pour charger la liste</li>
+ *   <li>{@link EtudiantService#registerEtudiant(Etudiant)} pour créer</li>
+ *   <li>{@link EtudiantService#updateEtudiant(Etudiant)} pour modifier</li>
+ *   <li>{@link EtudiantService#removeEtudiant(int)} pour supprimer</li>
+ * </ul>
+ * Les exceptions {@link ValidationException} et {@link DatabaseException}
+ * sont propagées et affichées dans des {@link Alert}.
+ * </p>
  */
-public class EtudiantController {
+public class EtudiantController implements Initializable {
 
-    @FXML
-    private TableView<Etudiant> etudiantTableView;
+    // ================================================================
+    // Injection FXML — noms calqués sur les attributs de l'entité
+    // ================================================================
 
-    @FXML
-    private TableColumn<Etudiant, Integer> idColumn;
+    /** Champ en lecture seule pour l'idEtudiant généré par la BD */
+    @FXML private TextField idEtudiantField;
 
-    @FXML
-    private TableColumn<Etudiant, String> nomColumn;
+    /** Champ lié à l'attribut {@code nom} de l'entité {@link Etudiant} */
+    @FXML private TextField nomField;
 
-    @FXML
-    private TableColumn<Etudiant, String> prenomColumn;
+    /** Champ lié à l'attribut {@code prenom} de l'entité {@link Etudiant} */
+    @FXML private TextField prenomField;
 
-    @FXML
-    private TableColumn<Etudiant, Integer> ageColumn;
+    /** Champ lié à l'attribut {@code age} de l'entité {@link Etudiant} */
+    @FXML private TextField ageField;
 
-    @FXML
-    private TextField nomField;
+    // Tableau
+    @FXML private TableView<Etudiant>       etudiantTable;
+    @FXML private TableColumn<Etudiant, Integer> colIdEtudiant;
+    @FXML private TableColumn<Etudiant, String>  colNom;
+    @FXML private TableColumn<Etudiant, String>  colPrenom;
+    @FXML private TableColumn<Etudiant, Integer> colAge;
 
-    @FXML
-    private TextField prenomField;
+    // Boutons
+    @FXML private Button btnNouveau;
+    @FXML private Button btnEnregistrer;
+    @FXML private Button btnModifier;
+    @FXML private Button btnSupprimer;
+    @FXML private Button btnRafraichir;
 
-    @FXML
-    private TextField ageField;
+    // Indicateurs
+    @FXML private Label              statusLabel;
+    @FXML private Label              countLabel;
+    @FXML private Label              footerLabel;
+    @FXML private ProgressIndicator  progressIndicator;
 
-    @FXML
-    private Button registerButton;
-
-    @FXML
-    private Button updateButton;
-
-    @FXML
-    private Button removeButton;
+    // ================================================================
+    // État interne
+    // ================================================================
 
     private final EtudiantService etudiantService = new EtudiantService();
-    private final ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
-    private Etudiant selectedEtudiant = null;
+    private final ObservableList<Etudiant> etudiantData = FXCollections.observableArrayList();
 
-    @FXML
-    public void initialize() {
-        // Liaison des colonnes de la TableView avec les propriétés de l'entité Etudiant
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("idEtudiant"));
-        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+    /** Étudiant actuellement sélectionné dans la TableView (null si aucun) */
+    private Etudiant etudiantSelectionne = null;
 
-        // Listener pour détecter la sélection d'une ligne
-        etudiantTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                selectedEtudiant = newValue;
-                nomField.setText(selectedEtudiant.getNom());
-                prenomField.setText(selectedEtudiant.getPrenom());
-                ageField.setText(String.valueOf(selectedEtudiant.getAge()));
-            }
-        });
+    // ================================================================
+    // Initialisation
+    // ================================================================
 
-        // Chargement initial des données
-        loadEtudiants();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        configurerColonnes();
+        etudiantTable.setItems(etudiantData);
+        chargerEtudiants();
     }
 
     /**
-     * Charge la liste des étudiants en arrière-plan à l'aide de javafx.concurrent.Task.
+     * Configure les colonnes de la TableView en utilisant
+     * les noms exacts des getters de l'entité {@link Etudiant}.
      */
-    private void loadEtudiants() {
-        Task<List<Etudiant>> task = new Task<>() {
+    private void configurerColonnes() {
+        colIdEtudiant.setCellValueFactory(new PropertyValueFactory<>("idEtudiant"));
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+
+        // Centrer la colonne ID et Âge
+        colIdEtudiant.setStyle("-fx-alignment: CENTER;");
+        colAge.setStyle("-fx-alignment: CENTER;");
+    }
+
+    // ================================================================
+    // Chargement des données — Task javafx.concurrent
+    // ================================================================
+
+    /**
+     * Charge tous les étudiants depuis {@link EtudiantService#getAllEtudiants()}
+     * dans un thread dédié pour ne pas bloquer le thread JavaFX.
+     */
+    private void chargerEtudiants() {
+        setChargementEnCours(true);
+        setStatut("Chargement des étudiants...");
+
+        Task<List<Etudiant>> tache = new Task<>() {
             @Override
-            protected List<Etudiant> call() throws Exception {
+            protected List<Etudiant> call() {
+                // Appel exact de votre méthode Service
                 return etudiantService.getAllEtudiants();
             }
         };
 
-        task.setOnSucceeded(event -> {
-            etudiantList.setAll(task.getValue());
-            etudiantTableView.setItems(etudiantList);
+        tache.setOnSucceeded(event -> {
+            etudiantData.setAll(tache.getValue());
+            setChargementEnCours(false);
+            setStatut("Liste chargée avec succès.");
+            countLabel.setText(etudiantData.size() + " étudiant(s)");
         });
 
-        task.setOnFailed(event -> {
-            showErrorAlert("Erreur de chargement", "Impossible de récupérer les étudiants depuis la base de données.", task.getException());
+        tache.setOnFailed(event -> {
+            setChargementEnCours(false);
+            Throwable cause = tache.getException();
+            if (cause instanceof DatabaseException) {
+                afficherAlerteErreur("Erreur base de données", cause.getMessage());
+            } else {
+                afficherAlerteErreur("Erreur inattendue", cause != null ? cause.getMessage() : "Inconnue");
+            }
+            setStatut("Échec du chargement.");
         });
 
-        new Thread(task).start();
+        Thread thread = new Thread(tache);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    // ================================================================
+    // Actions des boutons (handlers FXML)
+    // ================================================================
+
+    /** Vide le formulaire et désélectionne la table. */
+    @FXML
+    private void handleNouveau() {
+        viderFormulaire();
+        etudiantTable.getSelectionModel().clearSelection();
+        etudiantSelectionne = null;
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
+        btnEnregistrer.setDisable(false);
+        nomField.requestFocus();
+        setStatut("Nouveau formulaire prêt.");
     }
 
     /**
-     * Action pour enregistrer un nouvel étudiant.
+     * Crée un nouvel étudiant via {@link EtudiantService#registerEtudiant(Etudiant)}.
+     * Attrape {@link ValidationException} et {@link DatabaseException}.
      */
     @FXML
-    private void handleRegister() {
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        int age;
-
+    private void handleEnregistrer() {
         try {
-            age = Integer.parseInt(ageField.getText());
-        } catch (NumberFormatException e) {
-            showErrorAlert("Erreur de saisie", "L'âge doit être un nombre entier valide.", e);
-            return;
+            Etudiant nouvelEtudiant = lireFormulaire();
+            setChargementEnCours(true);
+            setStatut("Enregistrement en cours...");
+
+            Task<Void> tache = new Task<>() {
+                @Override
+                protected Void call() {
+                    // Appel exact de votre méthode Service
+                    etudiantService.registerEtudiant(nouvelEtudiant);
+                    return null;
+                }
+            };
+
+            tache.setOnSucceeded(e -> {
+                setChargementEnCours(false);
+                setStatut("✔ Étudiant enregistré avec succès.");
+                chargerEtudiants();
+                viderFormulaire();
+            });
+
+            tache.setOnFailed(e -> {
+                setChargementEnCours(false);
+                Throwable cause = tache.getException();
+                if (cause instanceof ValidationException) {
+                    afficherAlerteAvertissement("Validation échouée", cause.getMessage());
+                } else if (cause instanceof DatabaseException) {
+                    afficherAlerteErreur("Erreur base de données", cause.getMessage());
+                } else {
+                    afficherAlerteErreur("Erreur", cause != null ? cause.getMessage() : "Inconnue");
+                }
+                setStatut("Échec de l'enregistrement.");
+            });
+
+            new Thread(tache) {{ setDaemon(true); }}.start();
+
+        } catch (ValidationException e) {
+            afficherAlerteAvertissement("Saisie invalide", e.getMessage());
         }
-
-        Etudiant newEtudiant = new Etudiant(0, nom, prenom, age);
-
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                etudiantService.registerEtudiant(newEtudiant);
-                return null;
-            }
-        };
-
-        task.setOnSucceeded(event -> {
-            loadEtudiants();
-            clearFields();
-            showInfoAlert("Succès", "Étudiant enregistré avec succès.");
-        });
-
-        task.setOnFailed(event -> {
-            showErrorAlert("Erreur d'enregistrement", "L'enregistrement de l'étudiant a échoué.", task.getException());
-        });
-
-        new Thread(task).start();
     }
 
     /**
-     * Action pour mettre à jour l'étudiant sélectionné.
+     * Met à jour l'étudiant sélectionné via {@link EtudiantService#updateEtudiant(Etudiant)}.
+     * Attrape {@link ValidationException} et {@link DatabaseException}.
      */
     @FXML
-    private void handleUpdate() {
-        if (selectedEtudiant == null) {
-            showInfoAlert("Sélection requise", "Veuillez sélectionner un étudiant dans le tableau.");
+    private void handleModifier() {
+        if (etudiantSelectionne == null) {
+            afficherAlerteAvertissement("Aucune sélection", "Veuillez d'abord sélectionner un étudiant dans la liste.");
             return;
         }
-
-        String nom = nomField.getText();
-        String prenom = prenomField.getText();
-        int age;
-
         try {
-            age = Integer.parseInt(ageField.getText());
-        } catch (NumberFormatException e) {
-            showErrorAlert("Erreur de saisie", "L'âge doit être un nombre entier valide.", e);
-            return;
+            Etudiant etudiantModifie = lireFormulaire();
+            // On conserve l'idEtudiant original de l'entité sélectionnée
+            etudiantModifie.setIdEtudiant(etudiantSelectionne.getIdEtudiant());
+            setChargementEnCours(true);
+            setStatut("Modification en cours...");
+
+            Task<Void> tache = new Task<>() {
+                @Override
+                protected Void call() {
+                    // Appel exact de votre méthode Service
+                    etudiantService.updateEtudiant(etudiantModifie);
+                    return null;
+                }
+            };
+
+            tache.setOnSucceeded(e -> {
+                setChargementEnCours(false);
+                setStatut("✔ Étudiant modifié avec succès.");
+                chargerEtudiants();
+                handleNouveau();
+            });
+
+            tache.setOnFailed(e -> {
+                setChargementEnCours(false);
+                Throwable cause = tache.getException();
+                if (cause instanceof ValidationException) {
+                    afficherAlerteAvertissement("Validation échouée", cause.getMessage());
+                } else if (cause instanceof DatabaseException) {
+                    afficherAlerteErreur("Erreur base de données", cause.getMessage());
+                } else {
+                    afficherAlerteErreur("Erreur", cause != null ? cause.getMessage() : "Inconnue");
+                }
+                setStatut("Échec de la modification.");
+            });
+
+            new Thread(tache) {{ setDaemon(true); }}.start();
+
+        } catch (ValidationException e) {
+            afficherAlerteAvertissement("Saisie invalide", e.getMessage());
         }
-
-        selectedEtudiant.setNom(nom);
-        selectedEtudiant.setPrenom(prenom);
-        selectedEtudiant.setAge(age);
-
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                etudiantService.updateEtudiant(selectedEtudiant);
-                return null;
-            }
-        };
-
-        task.setOnSucceeded(event -> {
-            loadEtudiants();
-            clearFields();
-            showInfoAlert("Succès", "Étudiant mis à jour avec succès.");
-        });
-
-        task.setOnFailed(event -> {
-            showErrorAlert("Erreur de mise à jour", "La mise à jour de l'étudiant a échoué.", task.getException());
-        });
-
-        new Thread(task).start();
     }
 
     /**
-     * Action pour supprimer l'étudiant sélectionné.
+     * Supprime l'étudiant sélectionné via {@link EtudiantService#removeEtudiant(int)}.
+     * Demande confirmation avant de procéder.
      */
     @FXML
-    private void handleRemove() {
-        if (selectedEtudiant == null) {
-            showInfoAlert("Sélection requise", "Veuillez sélectionner un étudiant dans le tableau.");
+    private void handleSupprimer() {
+        if (etudiantSelectionne == null) {
+            afficherAlerteAvertissement("Aucune sélection", "Veuillez sélectionner un étudiant à supprimer.");
             return;
         }
 
-        int id = selectedEtudiant.getIdEtudiant();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirmation de suppression");
+        confirmation.setHeaderText("Supprimer l'étudiant ?");
+        confirmation.setContentText(
+                "Voulez-vous vraiment supprimer « " +
+                etudiantSelectionne.getNom() + " " +
+                etudiantSelectionne.getPrenom() + " » ?\n" +
+                "Cette action est irréversible."
+        );
+        confirmation.getDialogPane().setStyle("-fx-background-color: #242840; -fx-text-fill: white;");
 
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                etudiantService.removeEtudiant(id);
-                return null;
+        confirmation.showAndWait().ifPresent(reponse -> {
+            if (reponse == ButtonType.OK) {
+                int idASupprimer = etudiantSelectionne.getIdEtudiant();
+                setChargementEnCours(true);
+                setStatut("Suppression en cours...");
+
+                Task<Void> tache = new Task<>() {
+                    @Override
+                    protected Void call() {
+                        // Appel exact de votre méthode Service
+                        etudiantService.removeEtudiant(idASupprimer);
+                        return null;
+                    }
+                };
+
+                tache.setOnSucceeded(e -> {
+                    setChargementEnCours(false);
+                    setStatut("✔ Étudiant supprimé.");
+                    chargerEtudiants();
+                    handleNouveau();
+                });
+
+                tache.setOnFailed(e -> {
+                    setChargementEnCours(false);
+                    Throwable cause = tache.getException();
+                    if (cause instanceof DatabaseException) {
+                        afficherAlerteErreur("Erreur base de données", cause.getMessage());
+                    } else {
+                        afficherAlerteErreur("Erreur", cause != null ? cause.getMessage() : "Inconnue");
+                    }
+                    setStatut("Échec de la suppression.");
+                });
+
+                new Thread(tache) {{ setDaemon(true); }}.start();
             }
-        };
-
-        task.setOnSucceeded(event -> {
-            loadEtudiants();
-            clearFields();
-            showInfoAlert("Succès", "Étudiant supprimé avec succès.");
         });
-
-        task.setOnFailed(event -> {
-            showErrorAlert("Erreur de suppression", "La suppression de l'étudiant a échoué.", task.getException());
-        });
-
-        new Thread(task).start();
     }
 
-    private void clearFields() {
+    /** Recharge la liste depuis {@link EtudiantService#getAllEtudiants()}. */
+    @FXML
+    private void handleRafraichir() {
+        handleNouveau();
+        chargerEtudiants();
+    }
+
+    /**
+     * Remplit le formulaire avec les données de la ligne cliquée
+     * et active les boutons Modifier et Supprimer.
+     */
+    @FXML
+    private void handleTableSelection() {
+        Etudiant selectionne = etudiantTable.getSelectionModel().getSelectedItem();
+        if (selectionne != null) {
+            etudiantSelectionne = selectionne;
+            // Remplir les champs avec les valeurs exactes de l'entité
+            idEtudiantField.setText(String.valueOf(selectionne.getIdEtudiant()));
+            nomField.setText(selectionne.getNom());
+            prenomField.setText(selectionne.getPrenom());
+            ageField.setText(String.valueOf(selectionne.getAge()));
+            // Activer les boutons contextuels
+            btnModifier.setDisable(false);
+            btnSupprimer.setDisable(false);
+            btnEnregistrer.setDisable(true);
+            setStatut("Étudiant sélectionné : " + selectionne.getNom() + " " + selectionne.getPrenom());
+        }
+    }
+
+    // ================================================================
+    // Méthodes utilitaires privées
+    // ================================================================
+
+    /**
+     * Lit le contenu des champs du formulaire et construit un objet {@link Etudiant}.
+     *
+     * @return l'étudiant construit depuis le formulaire
+     * @throws ValidationException si le champ âge n'est pas un entier valide
+     */
+    private Etudiant lireFormulaire() throws ValidationException {
+        String nom    = nomField.getText().trim();
+        String prenom = prenomField.getText().trim();
+        String ageStr = ageField.getText().trim();
+
+        if (nom.isEmpty() || prenom.isEmpty() || ageStr.isEmpty()) {
+            throw new ValidationException("Les champs Nom, Prénom et Âge sont obligatoires.");
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageStr);
+        } catch (NumberFormatException e) {
+            throw new ValidationException("L'âge doit être un nombre entier valide (ex: 20).");
+        }
+
+        // idEtudiant = 0 à la création (la BD génère l'ID réel)
+        return new Etudiant(0, nom, prenom, age);
+    }
+
+    /** Vide tous les champs du formulaire. */
+    private void viderFormulaire() {
+        idEtudiantField.clear();
         nomField.clear();
         prenomField.clear();
         ageField.clear();
-        selectedEtudiant = null;
-        etudiantTableView.getSelectionModel().clearSelection();
     }
 
-    private void showInfoAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    /** Active ou désactive l'indicateur de chargement et le pied de page. */
+    private void setChargementEnCours(boolean enCours) {
+        progressIndicator.setVisible(enCours);
+        btnEnregistrer.setDisable(enCours);
+        btnRafraichir.setDisable(enCours);
     }
 
-    private void showErrorAlert(String title, String context, Throwable exception) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(context);
+    /** Met à jour le label de statut dans le pied de page. */
+    private void setStatut(String message) {
+        statusLabel.setText(message);
+        footerLabel.setText(message);
+    }
 
-        // Détection des exceptions personnalisées de notre couche métier
-        if (exception instanceof ValidationException) {
-            alert.setContentText("Règle métier violée : " + exception.getMessage());
-        } else if (exception instanceof DatabaseException) {
-            alert.setContentText("Erreur base de données : " + exception.getMessage() + "\n(Détail : " + exception.getCause().getMessage() + ")");
-        } else {
-            alert.setContentText("Détail de l'erreur : " + exception.getMessage());
-        }
+    /** Affiche une alerte d'erreur (rouge). */
+    private void afficherAlerteErreur(String titre, String message) {
+        Alert alerte = new Alert(Alert.AlertType.ERROR);
+        alerte.setTitle(titre);
+        alerte.setHeaderText(titre);
+        alerte.setContentText(message);
+        alerte.showAndWait();
+    }
 
-        alert.showAndWait();
+    /** Affiche une alerte d'avertissement (orange). */
+    private void afficherAlerteAvertissement(String titre, String message) {
+        Alert alerte = new Alert(Alert.AlertType.WARNING);
+        alerte.setTitle(titre);
+        alerte.setHeaderText(titre);
+        alerte.setContentText(message);
+        alerte.showAndWait();
     }
 }

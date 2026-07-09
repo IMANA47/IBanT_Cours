@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GestionEtudiant (JavaFX)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.gestionetud.ui.MainApp" />
+    <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/libs/javafx-base-21.0.2-win.jar;$PROJECT_DIR$/libs/javafx-controls-21.0.2-win.jar;$PROJECT_DIR$/libs/javafx-fxml-21.0.2-win.jar;$PROJECT_DIR$/libs/javafx-graphics-21.0.2-win.jar --add-modules javafx.controls,javafx.fxml" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <module name="GestionEtudiant" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
