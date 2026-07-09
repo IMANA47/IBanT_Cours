@@ -14,7 +14,7 @@
     <top>
         <VBox styleClass="header-box">
             <Label text="🎓 Gestion des Étudiants" styleClass="header-title"/>
-            <Label text="Système de gestion — MariaDB" styleClass="header-subtitle"/>
+            <Label text="Système de gestion" styleClass="header-subtitle"/>
         </VBox>
     </top>
 
@@ -70,13 +70,13 @@
                 <HBox spacing="10" alignment="CENTER_RIGHT">
                     <Button fx:id="btnNouveau" text="✚  Nouveau" onAction="#handleNouveau"
                             styleClass="btn-secondary"/>
-                    <Button fx:id="btnEnregistrer" text="💾  Enregistrer" onAction="#handleEnregistrer"
+                    <Button fx:id="btnEnregistrer" text="Enregistrer" onAction="#handleEnregistrer"
                             styleClass="btn-primary"/>
-                    <Button fx:id="btnModifier" text="✎  Modifier" onAction="#handleModifier"
+                    <Button fx:id="btnModifier" text="Modifier" onAction="#handleModifier"
                             styleClass="btn-warning" disable="true"/>
-                    <Button fx:id="btnSupprimer" text="🗑  Supprimer" onAction="#handleSupprimer"
+                    <Button fx:id="btnSupprimer" text="Supprimer" onAction="#handleSupprimer"
                             styleClass="btn-danger" disable="true"/>
-                    <Button fx:id="btnRafraichir" text="↻  Rafraîchir" onAction="#handleRafraichir"
+                    <Button fx:id="btnRafraichir" text="Rafraîchir" onAction="#handleRafraichir"
                             styleClass="btn-info"/>
                 </HBox>
             </VBox>
