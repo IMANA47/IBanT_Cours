@@ -18,8 +18,6 @@ public class ConnexionBD {
             url = prop.getProperty("db.url");
             user = prop.getProperty("db.user");
             password = prop.getProperty("db.password");
-            // Charger le driver (facultatif avec JDBC 4+)
-            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Erreur de chargement de la configuration");

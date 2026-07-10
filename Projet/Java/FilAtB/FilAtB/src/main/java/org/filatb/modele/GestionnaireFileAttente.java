@@ -66,18 +66,12 @@ public class GestionnaireFileAttente {
     }
 
     public List<Client> getClientsEnAttente() {
-        // Pour afficher la file dans l'ordre, on reconstruit une liste
-        List<Client> liste = new ArrayList<>();
+        // Utilise la méthode toList() de FileCirculaire pour récupérer l'ordre FIFO
         if (file instanceof FileCirculaire) {
-            FileCirculaire<Client> fc = (FileCirculaire<Client>) file;
-            int t = fc.tete;
-            int q = fc.queue;
-            int taille = fc.taille();
-            for (int i = 0; i < taille; i++) {
-                liste.add(fc.elements[(t + i) % fc.capacite]);
-            }
+            return ((FileCirculaire<Client>) file).toList();
         }
-        return liste;
+        // Si vous avez d'autres implémentations, adaptez ici
+        return new ArrayList<>();
     }
 
     public int getTotalClientsServis() {

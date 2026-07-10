@@ -1,11 +1,13 @@
 package org.filatb.modele;
 
 import org.filatb.modele.exceptions.FileVideException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileCirculaire<T> implements IFile<T> {
     private T[] elements;
     private int tete;
-    private int queue; // indice où sera inséré le prochain élément
+    private int queue;
     private int taille;
     private final int capacite;
 
@@ -35,7 +37,7 @@ public class FileCirculaire<T> implements IFile<T> {
             throw new FileVideException("Impossible de défiler : file vide");
         }
         T element = elements[tete];
-        elements[tete] = null; // aide le GC
+        elements[tete] = null;
         tete = (tete + 1) % capacite;
         taille--;
         return element;
@@ -69,12 +71,14 @@ public class FileCirculaire<T> implements IFile<T> {
         while (!estVide()) {
             defiler();
         }
-        // alternative : réinitialiser tete=queue=taille=0;
-        // mais on préfère la boucle pour libérer les références
     }
 
-    // Pour affichage / débogage
-    public T[] getElements() {
-        return elements;
+    // NOUVELLE MÉTHODE POUR EXPOSER LA LISTE
+    public List<T> toList() {
+        List<T> result = new ArrayList<>(taille);
+        for (int i = 0; i < taille; i++) {
+            result.add(elements[(tete + i) % capacite]);
+        }
+        return result;
     }
 }
