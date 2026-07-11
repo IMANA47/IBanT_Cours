@@ -1,11 +1,14 @@
 package org.filatb.controleur;
 
 import org.filatb.modele.Client;
+import org.filatb.modele.ClientServiDTO;
 import org.filatb.modele.GestionnaireFileAttente;
+import org.filatb.utils.AudioPlayer;
 import org.filatb.vue.VueGuichet;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.filatb.vue.VueHistorique;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -51,6 +54,8 @@ public class ControleurGuichet {
         } catch (IllegalStateException ex) {
             vue.afficherMessage("Erreur : " + ex.getMessage());
         }
+        AudioPlayer.jouerSon("/sounds/ticket.wav");
+
     }
 
     private void appelerSuivant() {
@@ -62,6 +67,8 @@ public class ControleurGuichet {
         vue.afficherClientEnCours(clientEnCours);
         // Mettre à jour l'affichage
         mettreAJourAffichage();
+        // Jouer le son
+        AudioPlayer.jouerSon("/sounds/call.wav");
     }
 
     private void annulerClient() {
@@ -97,5 +104,10 @@ public class ControleurGuichet {
         if (gestionnaire.filePleine()) {
             vue.afficherMessage("Attention : la file est pleine !");
         }
+    }
+
+    public void afficherHistorique() {
+        List<ClientServiDTO> historique = gestionnaire.getClientServiDAO().listerTousClientsServis();
+        VueHistorique.afficherHistorique(historique);
     }
 }

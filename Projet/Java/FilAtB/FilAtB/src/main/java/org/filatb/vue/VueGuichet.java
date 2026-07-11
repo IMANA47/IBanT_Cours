@@ -43,7 +43,7 @@ public class VueGuichet {
         // Centre : ListView de la file + bouton annuler
         VBox center = new VBox(10);
         center.setPadding(new Insets(10));
-        Label lblFile = new Label("File d'attente (FIFO)");
+        Label lblFile = new Label("File d'attente client(e)s");
         listViewFile = new ListView<>();
         listViewFile.setPrefHeight(300);
         btnAnnuler = new Button("Annuler le client sélectionné");
@@ -64,6 +64,10 @@ public class VueGuichet {
                 (lblTotalServis = new Label("Servis : 0")),
                 (lblTempsMoyen = new Label("Temps moyen : 0 s")));
 
+        Button btnHistorique = new Button("Voir historique");
+        VueHistorique controleur;
+        btnHistorique.setOnAction(e -> VueHistorique.afficherHistorique()); // nous allons créer cette méthode
+        right.getChildren().add(btnHistorique);
         // Bottom : zone de message
         lblMessage = new Label();
         lblMessage.setStyle("-fx-text-fill: blue;");
@@ -97,5 +101,8 @@ public class VueGuichet {
         } else {
             lblClientEnCours.setText("Aucun");
         }
+    }
+
+    public ButtonBase getBtnHistorique() {
     }
 }

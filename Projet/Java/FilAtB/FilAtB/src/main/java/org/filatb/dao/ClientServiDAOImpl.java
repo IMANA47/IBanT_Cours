@@ -1,6 +1,8 @@
 package org.filatb.dao;
 
 import org.filatb.modele.Client;
+import org.filatb.modele.ClientServiDTO;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -77,5 +79,29 @@ public class ClientServiDAOImpl implements ClientServiDAO {
     public List<Client> listerHistorique() {
         // Implémentez si besoin
         return new ArrayList<>();
+    }
+    @Override
+    public List<ClientServiDTO> listerTousClientsServis() {
+        List<ClientServiDTO> liste = new ArrayList<>();
+        String sql = "SELECT id, numero_ticket, nom, motif, priorite, heure_arrivee, heure_prise_en_charge, guichet FROM client_servi ORDER BY heure_prise_en_charge DESC";
+        try (Connection conn = ConnexionBD.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                ClientServiDTO dto = new ClientServiDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setNumeroTicket(rs.getInt("numero_ticket"));
+                dto.setNom(rs.getString("nom"));
+                dto.setMotif(rs.getString("motif"));
+                dto.setPriorite(rs.getBoolean("priorite"));
+                dto.setHeureArrivee(rs.getTimestamp("heure_arrivee").toLocalDateTime());
+                dto.setHeurePriseEnCharge(rs.getTimestamp("heure_prise_en_charge").toLocalDateTime());
+                dto.setGuichet(rs.getString("guichet"));
+                liste.add(dto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return liste;
     }
 }

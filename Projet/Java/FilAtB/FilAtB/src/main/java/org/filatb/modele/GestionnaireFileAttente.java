@@ -106,5 +106,8 @@ public class GestionnaireFileAttente {
         return trouve;
     }
 
+    public ClientServiDAO getClientServiDAO() {
+        return clientServiDAO;
+    }
     // Pour mise à jour des stats au redémarrage, on pourrait aussi synchroniser
 }
