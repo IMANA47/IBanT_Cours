@@ -13,7 +13,8 @@ public class MainApp extends Application {
         GestionnaireFileAttente gestionnaire = new GestionnaireFileAttente(10);
         VueGuichet vue = new VueGuichet();
         ControleurGuichet controleur = new ControleurGuichet(gestionnaire, vue);
-        vue.getBtnHistorique().setOnAction(e -> controleur.afficherHistorique())
+// Connecter le bouton historique
+        vue.getBtnHistorique().setOnAction(e -> controleur.afficherHistorique());
 
         Scene scene = new Scene(vue.getRoot(), 950, 700);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());

@@ -54,7 +54,8 @@ public class ControleurGuichet {
         } catch (IllegalStateException ex) {
             vue.afficherMessage("Erreur : " + ex.getMessage());
         }
-        AudioPlayer.jouerSon("/sounds/ticket.wav");
+        Client client = gestionnaire.prendreTicket(nom, motif, false);
+        AudioPlayer.jouerSon("/sounds/ticket.mp3");
 
     }
 
@@ -65,10 +66,9 @@ public class ControleurGuichet {
         }
         clientEnCours = gestionnaire.appelerClientSuivant();
         vue.afficherClientEnCours(clientEnCours);
-        // Mettre à jour l'affichage
+        // Jouer le son d'appel
+        AudioPlayer.jouerSon("/sounds/call.mp3");
         mettreAJourAffichage();
-        // Jouer le son
-        AudioPlayer.jouerSon("/sounds/call.wav");
     }
 
     private void annulerClient() {

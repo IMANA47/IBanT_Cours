@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.filatb.modele.ClientServiDTO;
-
 import java.util.List;
 
 public class VueHistorique {
@@ -33,10 +32,10 @@ public class VueHistorique {
         colMotif.setCellValueFactory(new PropertyValueFactory<>("motif"));
 
         TableColumn<ClientServiDTO, String> colArrivee = new TableColumn<>("Arrivée");
-        colArrivee.setCellValueFactory(new PropertyValueFactory<>("heureArrivee"));
+        colArrivee.setCellValueFactory(new PropertyValueFactory<>("heureArriveeFormatted"));
 
         TableColumn<ClientServiDTO, String> colPrise = new TableColumn<>("Prise en charge");
-        colPrise.setCellValueFactory(new PropertyValueFactory<>("heurePriseEnCharge"));
+        colPrise.setCellValueFactory(new PropertyValueFactory<>("heurePriseFormatted"));
 
         TableColumn<ClientServiDTO, String> colGuichet = new TableColumn<>("Guichet");
         colGuichet.setCellValueFactory(new PropertyValueFactory<>("guichet"));
@@ -47,7 +46,7 @@ public class VueHistorique {
         table.setItems(data);
 
         VBox root = new VBox(table);
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 850, 550);
         stage.setScene(scene);
         stage.show();
     }

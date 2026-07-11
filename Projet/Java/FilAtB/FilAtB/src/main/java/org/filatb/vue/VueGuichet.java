@@ -13,6 +13,7 @@ public class VueGuichet {
     private ComboBox<String> comboMotif;
     private Button btnPrendreTicket;
     private Button btnAppelerSuivant;
+    private Button btnHistorique;
     private Button btnAnnuler;
     private ListView<Client> listViewFile;
     private Label lblClientEnCours;
@@ -65,8 +66,7 @@ public class VueGuichet {
                 (lblTempsMoyen = new Label("Temps moyen : 0 s")));
 
         Button btnHistorique = new Button("Voir historique");
-        VueHistorique controleur;
-        btnHistorique.setOnAction(e -> VueHistorique.afficherHistorique()); // nous allons créer cette méthode
+        btnHistorique.setPrefWidth(Double.MAX_VALUE); // pour qu'il fasse la largeur du panneau
         right.getChildren().add(btnHistorique);
         // Bottom : zone de message
         lblMessage = new Label();
@@ -103,6 +103,5 @@ public class VueGuichet {
         }
     }
 
-    public ButtonBase getBtnHistorique() {
-    }
+    public Button getBtnHistorique() { return btnHistorique; }
 }
