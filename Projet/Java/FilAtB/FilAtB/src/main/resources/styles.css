@@ -1,27 +1,119 @@
+/* ==================== GLOBAL ==================== */
 .root {
-    -fx-font-family: "Segoe UI";
-    -fx-background-color: #ff1105;
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-background-color: #F5F7FB;
+    -fx-font-size: 13px;
 }
-.button {
-    -fx-background-color: #0078d7;
+
+/* ==================== CARTES ==================== */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0, 0, 3);
+    -fx-padding: 16px;
+}
+.card-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+.card-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F3D91;
+}
+
+/* ==================== BOUTONS ==================== */
+.button-primary {
+    -fx-background-color: #0F3D91;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 8 15;
-    -fx-background-radius: 5;
+    -fx-font-size: 13px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10 20;
 }
-.button:hover {
-    -fx-background-color: #005a9e;
-}
-.button:disabled {
-    -fx-background-color: #cccccc;
-}
-.list-view {
-    -fx-background-color: white;
-    -fx-border-color: #cccccc;
-}
-.label {
+.button-success {
+    -fx-background-color: #21A35C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10 25;
 }
-.combo-box, .text-field {
-    -fx-pref-height: 30;
+.button-danger {
+    -fx-background-color: #E53935;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10 25;
+}
+.button-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #1E293B;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25px;
+    -fx-padding: 6 16;
+    -fx-font-size: 13px;
+}
+
+/* ==================== BADGES (plus petits) ==================== */
+.badge-depot, .badge-retrait, .badge-ouverture, .badge-virement, .badge-autre {
+    -fx-padding: 2 10;
+    -fx-font-size: 11px;
+    -fx-background-radius: 15px;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    -fx-background-color: #0F3D91;
+    -fx-padding: 10 25;
+}
+.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #B0C4DE;
+}
+.header-clock {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+.header-user {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+    -fx-background-color: #0F3D91;
+    -fx-padding: 6 25;
+}
+.footer-text {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+.footer-version {
+    -fx-text-fill: #B0C4DE;
+    -fx-font-size: 11px;
+}
+.status-dot {
+    -fx-min-width: 8px;
+    -fx-min-height: 8px;
+}
+
+/* ==================== TABLEVIEW ==================== */
+.table-view {
+    -fx-font-size: 13px;
+}
+.table-view .column-header {
+    -fx-font-size: 13px;
+}
+.table-view .table-cell {
+    -fx-padding: 4 8;
 }

@@ -13,21 +13,7 @@ public class ClientServiDTO {
     private LocalDateTime heurePriseEnCharge;
     private String guichet;
 
-    // Constructeurs, getters et setters
-    public ClientServiDTO() {}
-
-    public ClientServiDTO(int numeroTicket, String nom, String motif, boolean priorite,
-                          LocalDateTime heureArrivee, LocalDateTime heurePriseEnCharge, String guichet) {
-        this.numeroTicket = numeroTicket;
-        this.nom = nom;
-        this.motif = motif;
-        this.priorite = priorite;
-        this.heureArrivee = heureArrivee;
-        this.heurePriseEnCharge = heurePriseEnCharge;
-        this.guichet = guichet;
-    }
-
-    // Getters et setters pour tous les champs
+    // --- Getters et Setters ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -52,17 +38,14 @@ public class ClientServiDTO {
     public String getGuichet() { return guichet; }
     public void setGuichet(String guichet) { this.guichet = guichet; }
 
-    // Pour un affichage formaté dans la table, on peut ajouter des getters renvoyant des String
-    public String getHeureArriveeFormatted() {
-        return heureArrivee.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+    // --- Méthodes formatées pour l'affichage ---
+    public String getHeureArriveeFormatee() {
+        if (heureArrivee == null) return "";
+        return heureArrivee.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
-    public String getHeurePriseFormatted() {
-        return heurePriseEnCharge.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-    }
-
-    @Override
-    public String toString() {
-        return String.format("#%d %s (%s)", numeroTicket, nom, motif);
+    public String getHeurePriseFormatee() {
+        if (heurePriseEnCharge == null) return "";
+        return heurePriseEnCharge.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }

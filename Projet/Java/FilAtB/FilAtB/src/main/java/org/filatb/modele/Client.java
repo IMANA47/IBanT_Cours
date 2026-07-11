@@ -30,4 +30,7 @@ public class Client {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return String.format("#%d %s (%s) à %s", numeroTicket, nom, motif, heureArrivee.format(formatter));
     }
+    public String getHeureArriveeFormatee() {
+        return heureArrivee.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
 }

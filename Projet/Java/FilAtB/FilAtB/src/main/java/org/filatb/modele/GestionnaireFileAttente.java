@@ -109,5 +109,23 @@ public class GestionnaireFileAttente {
     public ClientServiDAO getClientServiDAO() {
         return clientServiDAO;
     }
+
+    public int getProchainNumeroTicket() {
+        return prochainNumeroTicket;
+    }
+
+    public Client getDernierTicket() {
+        // Récupérer le dernier élément de la file (le plus récent)
+        if (file.estVide()) return null;
+        // On peut parcourir la file jusqu'au dernier, mais on peut aussi stocker une référence
+        // Pour simplifier, on utilise la liste des clients en attente et on prend le dernier
+        List<Client> list = getClientsEnAttente();
+        return list.isEmpty() ? null : list.get(list.size() - 1);
+    }
+
+    public void viderFile() {
+        file.vider();
+    }
+
     // Pour mise à jour des stats au redémarrage, on pourrait aussi synchroniser
 }

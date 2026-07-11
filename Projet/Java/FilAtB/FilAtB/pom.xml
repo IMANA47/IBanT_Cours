@@ -50,6 +50,11 @@
             <version>5.13.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.2</version>
+        </dependency>
     </dependencies>
 
     <build>
