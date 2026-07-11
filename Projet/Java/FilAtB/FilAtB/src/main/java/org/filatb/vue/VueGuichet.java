@@ -13,8 +13,8 @@ public class VueGuichet {
     private ComboBox<String> comboMotif;
     private Button btnPrendreTicket;
     private Button btnAppelerSuivant;
-    private Button btnHistorique;
     private Button btnAnnuler;
+    private Button btnHistorique;   // <-- AJOUTÉ
     private ListView<Client> listViewFile;
     private Label lblClientEnCours;
     private Label lblNbAttente, lblTotalServis, lblTempsMoyen;
@@ -44,7 +44,7 @@ public class VueGuichet {
         // Centre : ListView de la file + bouton annuler
         VBox center = new VBox(10);
         center.setPadding(new Insets(10));
-        Label lblFile = new Label("File d'attente client(e)s");
+        Label lblFile = new Label("File d'attente (FIFO)");
         listViewFile = new ListView<>();
         listViewFile.setPrefHeight(300);
         btnAnnuler = new Button("Annuler le client sélectionné");
@@ -59,15 +59,18 @@ public class VueGuichet {
         Label lblTraitement = new Label("En cours de traitement :");
         lblClientEnCours = new Label("Aucun");
         lblClientEnCours.setStyle("-fx-font-weight: bold; -fx-text-fill: green;");
+
+        // --- AJOUT DU BOUTON HISTORIQUE ---
+        btnHistorique = new Button("Voir historique");
+        // ---------------------------------
+
         right.getChildren().addAll(btnAppelerSuivant, lblTraitement, lblClientEnCours,
                 new Separator(), new Label("Statistiques :"),
                 (lblNbAttente = new Label("En attente : 0")),
                 (lblTotalServis = new Label("Servis : 0")),
-                (lblTempsMoyen = new Label("Temps moyen : 0 s")));
+                (lblTempsMoyen = new Label("Temps moyen : 0 s")),
+                btnHistorique);   // <-- AJOUTÉ DANS LA LISTE
 
-        Button btnHistorique = new Button("Voir historique");
-        btnHistorique.setPrefWidth(Double.MAX_VALUE); // pour qu'il fasse la largeur du panneau
-        right.getChildren().add(btnHistorique);
         // Bottom : zone de message
         lblMessage = new Label();
         lblMessage.setStyle("-fx-text-fill: blue;");
@@ -78,13 +81,14 @@ public class VueGuichet {
         BorderPane.setMargin(lblMessage, new Insets(10));
     }
 
-    // Getters pour le contrôleur
+    // Getters (tous les getters déjà présents, assurez-vous que getBtnHistorique existe)
     public BorderPane getRoot() { return root; }
     public TextField getTfNom() { return tfNom; }
     public ComboBox<String> getComboMotif() { return comboMotif; }
     public Button getBtnPrendreTicket() { return btnPrendreTicket; }
     public Button getBtnAppelerSuivant() { return btnAppelerSuivant; }
     public Button getBtnAnnuler() { return btnAnnuler; }
+    public Button getBtnHistorique() { return btnHistorique; }   // <-- GETTER
     public ListView<Client> getListViewFile() { return listViewFile; }
     public Label getLblClientEnCours() { return lblClientEnCours; }
     public Label getLblNbAttente() { return lblNbAttente; }
@@ -102,6 +106,4 @@ public class VueGuichet {
             lblClientEnCours.setText("Aucun");
         }
     }
-
-    public Button getBtnHistorique() { return btnHistorique; }
 }
