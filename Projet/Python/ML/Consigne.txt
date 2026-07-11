@@ -1,0 +1,18 @@
+Exercice : Prédire les performances des entreprises – Partie 1/2 💵
+30 minutes
+
+Y Combinator est l'un des incubateurs de startups les plus célèbres au monde. 
+Il a accompagné la croissance de nombreuses licornes (startups valorisées à plus d'un milliard de dollars), telles que :
+*Dropbox
+*Airbnb
+*Coinbase
+*Stripe
+*Zapier
+L'une des questions qui les intéresse particulièrement est de comprendre quels sont les facteurs qui favorisent le succès d'une entreprise.
+ Plus précisément, Y Combinator souhaite savoir si les dépenses ont une influence sur les bénéfices d'une entreprise.
+
+Votre mission : 
+Importez le jeu de données Marketing_Spending.csv, 
+puis créez un modèle de régression linéaire simple en vous appuyant sur le modèle (template) fourni.
+
+Objectif :  prédire le bénéfice (profit) d'une entreprise à partir de ses dépenses marketing (marketing spending).
