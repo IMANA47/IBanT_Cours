@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.gstudent.controller.EtudiantController">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Nom :"/>
+        <TextField fx:id="tfNom" prefWidth="120"/>
+        <Label text="Prénom :"/>
+        <TextField fx:id="tfPrenom" prefWidth="120"/>
+        <Label text="Email :"/>
+        <TextField fx:id="tfEmail" prefWidth="200"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button fx:id="btnAjouter" text="Ajouter" onAction="#onAjouter"/>
+        <Button fx:id="btnModifier" text="Modifier" onAction="#onModifier" disable="true"/>
+        <Button fx:id="btnSupprimer" text="Supprimer" onAction="#onSupprimer" disable="true"/>
+        <Button fx:id="btnAnnuler" text="Annuler" onAction="#onAnnuler" disable="true"/>
+    </HBox>
+
+    <TableView fx:id="tableEtudiants" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="120"/>
+            <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="120"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+        </columns>
+    </TableView>
+</VBox>

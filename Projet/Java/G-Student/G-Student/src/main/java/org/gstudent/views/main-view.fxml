@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.gstudent.controller.MainController">
+    <TabPane tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Étudiants" fx:id="tabEtudiants"/>
+        <Tab text="Matières" fx:id="tabMatieres"/>
+        <Tab text="composers" fx:id="tabcomposers"/>
+        <Tab text="Statistiques" fx:id="tabStats"/>
+    </TabPane>
+</VBox>

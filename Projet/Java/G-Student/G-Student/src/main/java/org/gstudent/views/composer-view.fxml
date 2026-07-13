@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.gstudent.controller.CompositionController">
+      fx:controller="org.gstudent.controller.composerController">
     <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
@@ -25,7 +25,7 @@
         <Button fx:id="btnAnnuler" text="Annuler" onAction="#onAnnuler" disable="true"/>
     </HBox>
 
-    <TableView fx:id="tableCompositions" VBox.vgrow="ALWAYS">
+    <TableView fx:id="tablecomposers" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
             <TableColumn fx:id="colEtudiant" text="Étudiant" prefWidth="200"/>

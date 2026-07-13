@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.gstudent.controller.StatsController">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+    <GridPane hgap="20" vgap="5">
+        <Label text="Moyenne générale :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblMoyenneGenerale" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Moyenne par matière (exemple) :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="lblMoyenneParMatiere" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+
+    <BarChart fx:id="barChart" title="Répartition des moyennes par étudiant" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" label="Tranches de notes"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Effectif"/>
+        </yAxis>
+    </BarChart>
+</VBox>
