@@ -7,7 +7,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import org.gstudent.exception.DaoException;
-import org.gstudent.service.composerService;
+import org.gstudent.service.ComposerService;
 import org.gstudent.service.MatiereService;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class StatsController {
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
 
-    private composerService composerService = new composerService();
+    private ComposerService ComposerService = new ComposerService();
     private MatiereService matiereService = new MatiereService();
 
     @FXML
@@ -33,19 +33,19 @@ public class StatsController {
     public void chargerStatistiques() {
         try {
             // Moyenne générale
-            double moyGen = composerService.moyenneGenerale();
+            double moyGen = ComposerService.moyenneGenerale();
             lblMoyenneGenerale.setText(String.format("%.2f / 20", moyGen));
 
             // Affichage d'un exemple de moyenne par matière (on prend la première matière pour simplifier)
             // Idéalement, on pourrait avoir un tableau ou un graphique avec toutes les matières.
             var matieres = matiereService.listerTous();
             if (!matieres.isEmpty()) {
-                double moyMat = composerService.moyenneParMatiere(matieres.get(0).getId());
+                double moyMat = ComposerService.moyenneParMatiere(matieres.get(0).getId());
                 lblMoyenneParMatiere.setText(matieres.get(0).getNom() + " : " + String.format("%.2f", moyMat));
             }
 
             // Graphique : répartition des notes (tranches)
-            List<Object[]> notesParEtu = composerService.notesParEtudiant();
+            List<Object[]> notesParEtu = ComposerService.notesParEtudiant();
             int[] tranches = new int[4]; // 0-5, 5-10, 10-15, 15-20
             for (Object[] obj : notesParEtu) {
                 double note = (double) obj[1];

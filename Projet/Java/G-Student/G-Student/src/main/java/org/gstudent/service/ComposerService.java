@@ -16,7 +16,7 @@ public class ComposerService {
     private MatiereService matiereService = new MatiereService();
 
     public void ajouter(Composer c) throws DaoException {
-        String sql = "INSERT INTO composer (id_etudiant, id_matiere, note) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Composer (id_etudiant, id_matiere, note) VALUES (?, ?, ?)";
         try (Connection conn = ConnexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, c.getEtudiant().getId());
@@ -26,36 +26,36 @@ public class ComposerService {
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) c.setId(rs.getInt(1));
         } catch (SQLException ex) {
-            throw new DaoException("Erreur ajout composer", ex);
+            throw new DaoException("Erreur ajout Composer", ex);
         }
     }
 
     public void modifier(Composer c) throws DaoException {
-        String sql = "UPDATE composer SET note=? WHERE id=?";
+        String sql = "UPDATE Composer SET note=? WHERE id=?";
         try (Connection conn = ConnexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, c.getNote());
             pstmt.setInt(2, c.getId());
             pstmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new DaoException("Erreur modification composer", ex);
+            throw new DaoException("Erreur modification Composer", ex);
         }
     }
 
     public void supprimer(int id) throws DaoException {
-        String sql = "DELETE FROM composer WHERE id=?";
+        String sql = "DELETE FROM Composer WHERE id=?";
         try (Connection conn = ConnexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new DaoException("Erreur suppression composer", ex);
+            throw new DaoException("Erreur suppression Composer", ex);
         }
     }
 
     public List<Composer> listerTous() throws DaoException {
         List<Composer> list = new ArrayList<>();
-        String sql = "SELECT * FROM composer";
+        String sql = "SELECT * FROM Composer";
         try (Connection conn = ConnexionBD.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -77,7 +77,7 @@ public class ComposerService {
 
     // Méthodes pour les statistiques
     public double moyenneGenerale() throws DaoException {
-        String sql = "SELECT AVG(note) FROM composer";
+        String sql = "SELECT AVG(note) FROM Composer";
         try (Connection conn = ConnexionBD.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -89,7 +89,7 @@ public class ComposerService {
     }
 
     public double moyenneParMatiere(int idMatiere) throws DaoException {
-        String sql = "SELECT AVG(note) FROM composer WHERE id_matiere = ?";
+        String sql = "SELECT AVG(note) FROM Composer WHERE id_matiere = ?";
         try (Connection conn = ConnexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idMatiere);
@@ -106,7 +106,7 @@ public class ComposerService {
         List<Object[]> result = new ArrayList<>();
         String sql = """
                 SELECT e.nom, e.prenom, AVG(c.note) AS moyenne
-                FROM composer c JOIN etudiant e ON c.id_etudiant = e.id
+                FROM Composer c JOIN etudiant e ON c.id_etudiant = e.id
                 GROUP BY e.id
                 ORDER BY moyenne DESC
                 """;

@@ -5,11 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.gstudent.entities.composer;
+import org.gstudent.entities.Composer;
 import org.gstudent.entities.Etudiant;
 import org.gstudent.entities.Matiere;
 import org.gstudent.exception.DaoException;
-import org.gstudent.service.composerService;
+import org.gstudent.service.ComposerService;
 import org.gstudent.service.EtudiantService;
 import org.gstudent.service.MatiereService;
 
@@ -17,22 +17,22 @@ import java.util.List;
 
 public class ComposerController {
 
-    @FXML private TableView<composer> tablecomposers;
-    @FXML private TableColumn<composer, Integer> colId;
-    @FXML private TableColumn<composer, String> colEtudiant;
-    @FXML private TableColumn<composer, String> colMatiere;
-    @FXML private TableColumn<composer, Double> colNote;
+    @FXML private TableView<Composer> tablecomposers;
+    @FXML private TableColumn<Composer, Integer> colId;
+    @FXML private TableColumn<Composer, String> colEtudiant;
+    @FXML private TableColumn<Composer, String> colMatiere;
+    @FXML private TableColumn<Composer, Double> colNote;
 
     @FXML private ComboBox<Etudiant> cbEtudiant;
     @FXML private ComboBox<Matiere> cbMatiere;
     @FXML private TextField tfNote;
     @FXML private Button btnAjouter, btnModifier, btnSupprimer, btnAnnuler;
 
-    private composerService service = new composerService();
+    private ComposerService service = new ComposerService();
     private EtudiantService etudiantService = new EtudiantService();
     private MatiereService matiereService = new MatiereService();
-    private ObservableList<composer> data = FXCollections.observableArrayList();
-    private composer composerSelectionnee;
+    private ObservableList<Composer> data = FXCollections.observableArrayList();
+    private Composer composerSelectionnee;
 
     @FXML
     public void initialize() {
@@ -100,7 +100,7 @@ public class ComposerController {
             return;
         }
         try {
-            composer c = new composer(0, e, m, note);
+            Composer c = new Composer(0, e, m, note);
             service.ajouter(c);
             chargerDonnees();
             viderChamps();
@@ -140,7 +140,7 @@ public class ComposerController {
     public void onSupprimer() {
         if (composerSelectionnee == null) return;
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Supprimer cette composer ?", ButtonType.YES, ButtonType.NO);
+                "Supprimer cette Composer ?", ButtonType.YES, ButtonType.NO);
         if (confirm.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
             try {
                 service.supprimer(composerSelectionnee.getId());
