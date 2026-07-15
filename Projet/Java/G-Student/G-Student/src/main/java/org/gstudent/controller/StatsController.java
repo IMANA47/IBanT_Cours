@@ -12,7 +12,7 @@ import org.gstudent.service.MatiereService;
 
 import java.util.List;
 
-public class StatsController {
+public class StatsController extends BaseController {
 
     @FXML private Label lblMoyenneGenerale;
     @FXML private Label lblMoyenneParMatiere;
@@ -65,7 +65,7 @@ public class StatsController {
             barChart.getData().add(series);
 
         } catch (DaoException e) {
-            e.printStackTrace();
+            afficherErreur("Erreur", "Erreur lors du chargement des statistiques : " + e.getMessage());
         }
     }
 }

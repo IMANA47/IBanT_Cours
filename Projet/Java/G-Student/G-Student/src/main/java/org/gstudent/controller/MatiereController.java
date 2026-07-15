@@ -8,8 +8,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.gstudent.entities.Matiere;
 import org.gstudent.exception.DaoException;
 import org.gstudent.service.MatiereService;
+import org.gstudent.util.ValidationUtils;
 
-public class MatiereController {
+import java.sql.SQLException;
+
+public class MatiereController extends BaseController {
 
     @FXML private TableView<Matiere> tableMatieres;
     @FXML private TableColumn<Matiere, Integer> colId;
@@ -62,22 +65,39 @@ public class MatiereController {
     public void onAjouter() {
         String nom = tfNom.getText().trim();
         String coeffStr = tfCoeff.getText().trim();
-        if (nom.isEmpty() || coeffStr.isEmpty()) {
+        
+        if (!ValidationUtils.isNotEmpty(nom) || !ValidationUtils.isNotEmpty(coeffStr)) {
             afficherErreur("Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
+        
+        if (!ValidationUtils.isValidName(nom)) {
+            afficherErreur("Nom invalide", "Le nom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
         double coeff;
-        try { coeff = Double.parseDouble(coeffStr); } catch (NumberFormatException e) {
+        try { 
+            coeff = Double.parseDouble(coeffStr); 
+            if (!ValidationUtils.isValidCoefficient(coeff)) {
+                afficherErreur("Coefficient invalide", "Le coefficient doit être entre 0 et 20.");
+                return;
+            }
+        } catch (NumberFormatException e) {
             afficherErreur("Erreur", "Coefficient invalide.");
             return;
         }
+        
         try {
             Matiere m = new Matiere(0, nom, coeff);
             service.ajouter(m);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Matière ajoutée avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -86,23 +106,40 @@ public class MatiereController {
         if (matiereSelectionnee == null) return;
         String nom = tfNom.getText().trim();
         String coeffStr = tfCoeff.getText().trim();
-        if (nom.isEmpty() || coeffStr.isEmpty()) {
+        
+        if (!ValidationUtils.isNotEmpty(nom) || !ValidationUtils.isNotEmpty(coeffStr)) {
             afficherErreur("Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
+        
+        if (!ValidationUtils.isValidName(nom)) {
+            afficherErreur("Nom invalide", "Le nom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
         double coeff;
-        try { coeff = Double.parseDouble(coeffStr); } catch (NumberFormatException e) {
+        try { 
+            coeff = Double.parseDouble(coeffStr); 
+            if (!ValidationUtils.isValidCoefficient(coeff)) {
+                afficherErreur("Coefficient invalide", "Le coefficient doit être entre 0 et 20.");
+                return;
+            }
+        } catch (NumberFormatException e) {
             afficherErreur("Erreur", "Coefficient invalide.");
             return;
         }
+        
         try {
             matiereSelectionnee.setNom(nom);
             matiereSelectionnee.setCoefficient(coeff);
             service.modifier(matiereSelectionnee);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Matière modifiée avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -119,6 +156,8 @@ public class MatiereController {
                 viderChamps();
             } catch (DaoException ex) {
                 afficherErreur("Erreur", ex.getMessage());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -137,11 +176,4 @@ public class MatiereController {
         btnSupprimer.setDisable(true);
     }
 
-    private void afficherErreur(String titre, String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titre);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }

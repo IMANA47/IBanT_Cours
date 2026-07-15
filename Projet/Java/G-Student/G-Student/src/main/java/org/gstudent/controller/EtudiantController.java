@@ -8,8 +8,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.gstudent.entities.Etudiant;
 import org.gstudent.exception.DaoException;
 import org.gstudent.service.EtudiantService;
+import org.gstudent.util.ValidationUtils;
 
-public class EtudiantController {
+import java.sql.SQLException;
+
+public class EtudiantController extends BaseController {
 
     @FXML private TableView<Etudiant> tableEtudiants;
     @FXML private TableColumn<Etudiant, Integer> colId;
@@ -66,17 +69,37 @@ public class EtudiantController {
         String nom = tfNom.getText().trim();
         String prenom = tfPrenom.getText().trim();
         String email = tfEmail.getText().trim();
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty()) {
+        
+        if (!ValidationUtils.isNotEmpty(nom) || !ValidationUtils.isNotEmpty(prenom) || !ValidationUtils.isNotEmpty(email)) {
             afficherErreur("Champs vides", "Tous les champs sont obligatoires.");
             return;
         }
+        
+        if (!ValidationUtils.isValidName(nom)) {
+            afficherErreur("Nom invalide", "Le nom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
+        if (!ValidationUtils.isValidName(prenom)) {
+            afficherErreur("Prénom invalide", "Le prénom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
+        if (!ValidationUtils.isValidEmail(email)) {
+            afficherErreur("Email invalide", "Veuillez saisir une adresse email valide.");
+            return;
+        }
+        
         try {
             Etudiant e = new Etudiant(0, nom, prenom, email);
             service.ajouter(e);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Étudiant ajouté avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -86,10 +109,27 @@ public class EtudiantController {
         String nom = tfNom.getText().trim();
         String prenom = tfPrenom.getText().trim();
         String email = tfEmail.getText().trim();
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty()) {
+        
+        if (!ValidationUtils.isNotEmpty(nom) || !ValidationUtils.isNotEmpty(prenom) || !ValidationUtils.isNotEmpty(email)) {
             afficherErreur("Champs vides", "Tous les champs sont obligatoires.");
             return;
         }
+        
+        if (!ValidationUtils.isValidName(nom)) {
+            afficherErreur("Nom invalide", "Le nom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
+        if (!ValidationUtils.isValidName(prenom)) {
+            afficherErreur("Prénom invalide", "Le prénom doit contenir entre 2 et 50 caractères alphabétiques.");
+            return;
+        }
+        
+        if (!ValidationUtils.isValidEmail(email)) {
+            afficherErreur("Email invalide", "Veuillez saisir une adresse email valide.");
+            return;
+        }
+        
         try {
             etudiantSelectionne.setNom(nom);
             etudiantSelectionne.setPrenom(prenom);
@@ -97,8 +137,11 @@ public class EtudiantController {
             service.modifier(etudiantSelectionne);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Étudiant modifié avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -115,6 +158,8 @@ public class EtudiantController {
                 viderChamps();
             } catch (DaoException ex) {
                 afficherErreur("Erreur", ex.getMessage());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -134,11 +179,4 @@ public class EtudiantController {
         btnSupprimer.setDisable(true);
     }
 
-    private void afficherErreur(String titre, String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titre);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }

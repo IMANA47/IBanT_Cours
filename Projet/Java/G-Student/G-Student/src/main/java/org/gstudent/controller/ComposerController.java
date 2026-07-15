@@ -12,10 +12,13 @@ import org.gstudent.exception.DaoException;
 import org.gstudent.service.ComposerService;
 import org.gstudent.service.EtudiantService;
 import org.gstudent.service.MatiereService;
+import org.gstudent.util.ValidationUtils;
+
+import java.sql.SQLException;
 
 import java.util.List;
 
-public class ComposerController {
+public class ComposerController extends BaseController {
 
     @FXML private TableView<Composer> tablecomposers;
     @FXML private TableColumn<Composer, Integer> colId;
@@ -90,22 +93,34 @@ public class ComposerController {
         Etudiant e = cbEtudiant.getValue();
         Matiere m = cbMatiere.getValue();
         String noteStr = tfNote.getText().trim();
-        if (e == null || m == null || noteStr.isEmpty()) {
+        
+        if (e == null || m == null || !ValidationUtils.isNotEmpty(noteStr)) {
             afficherErreur("Champs vides", "Veuillez sélectionner un étudiant, une matière et saisir une note.");
             return;
         }
+        
         double note;
-        try { note = Double.parseDouble(noteStr); if (note<0||note>20) throw new NumberFormatException(); } catch (NumberFormatException ex) {
+        try { 
+            note = Double.parseDouble(noteStr); 
+            if (!ValidationUtils.isValidNote(note)) {
+                afficherErreur("Note invalide", "La note doit être un nombre entre 0 et 20.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
             afficherErreur("Erreur", "La note doit être un nombre entre 0 et 20.");
             return;
         }
+        
         try {
             Composer c = new Composer(0, e, m, note);
             service.ajouter(c);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Note ajoutée avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException sqlEx) {
+            throw new RuntimeException(sqlEx);
         }
     }
 
@@ -115,15 +130,24 @@ public class ComposerController {
         Etudiant e = cbEtudiant.getValue();
         Matiere m = cbMatiere.getValue();
         String noteStr = tfNote.getText().trim();
-        if (e == null || m == null || noteStr.isEmpty()) {
+        
+        if (e == null || m == null || !ValidationUtils.isNotEmpty(noteStr)) {
             afficherErreur("Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
+        
         double note;
-        try { note = Double.parseDouble(noteStr); if (note<0||note>20) throw new NumberFormatException(); } catch (NumberFormatException ex) {
+        try { 
+            note = Double.parseDouble(noteStr); 
+            if (!ValidationUtils.isValidNote(note)) {
+                afficherErreur("Note invalide", "La note doit être un nombre entre 0 et 20.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
             afficherErreur("Erreur", "Note invalide.");
             return;
         }
+        
         try {
             composerSelectionnee.setEtudiant(e);
             composerSelectionnee.setMatiere(m);
@@ -131,8 +155,11 @@ public class ComposerController {
             service.modifier(composerSelectionnee);
             chargerDonnees();
             viderChamps();
+            afficherInformation("Succès", "Note modifiée avec succès.");
         } catch (DaoException ex) {
             afficherErreur("Erreur", ex.getMessage());
+        } catch (SQLException sqlEx) {
+            throw new RuntimeException(sqlEx);
         }
     }
 
@@ -148,6 +175,8 @@ public class ComposerController {
                 viderChamps();
             } catch (DaoException ex) {
                 afficherErreur("Erreur", ex.getMessage());
+            } catch (SQLException sqlEx) {
+                throw new RuntimeException(sqlEx);
             }
         }
     }
@@ -167,11 +196,4 @@ public class ComposerController {
         btnSupprimer.setDisable(true);
     }
 
-    private void afficherErreur(String titre, String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titre);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 }
