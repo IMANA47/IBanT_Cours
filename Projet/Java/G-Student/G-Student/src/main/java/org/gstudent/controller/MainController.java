@@ -24,7 +24,7 @@ public class MainController {
             FXMLLoader loaderMat = new FXMLLoader(getClass().getResource("/org/gstudent/views/matiere-view.fxml"));
             tabMatieres.setContent(loaderMat.load());
 
-            FXMLLoader loaderComp = new FXMLLoader(getClass().getResource("/org/gstudent/views/Composer-view.fxml"));
+            FXMLLoader loaderComp = new FXMLLoader(getClass().getResource("/org/gstudent/views/composer-view.fxml"));
             tabcomposers.setContent(loaderComp.load());
 
             FXMLLoader loaderStats = new FXMLLoader(getClass().getResource("/org/gstudent/views/stats-view.fxml"));

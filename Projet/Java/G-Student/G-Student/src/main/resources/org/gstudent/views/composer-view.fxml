@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.gstudent.controller.composerController">
+      fx:controller="org.gstudent.controller.ComposerController">
     <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
