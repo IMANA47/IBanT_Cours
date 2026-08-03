@@ -68,7 +68,7 @@ public class VueGuichet {
         Label logo = new Label("🏦");
         logo.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
         VBox titleBox = new VBox(0);
-        Label title = new Label("Ma Banque");
+        Label title = new Label("FilAtB");
         title.getStyleClass().add("header-title");
         Label subtitle = new Label("Gestion de la file d'attente");
         subtitle.getStyleClass().add("header-subtitle");

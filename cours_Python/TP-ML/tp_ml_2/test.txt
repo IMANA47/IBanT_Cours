@@ -1,0 +1,25 @@
+"""
+Partie 4: Mini-Projet (Y Combinator)
+
+# Exercice 4: Y Combinator
+# Projet machine learning
+# Importez les bibliotheques nécessaires
+
+# 1. Importez le jeu de donnees
+
+
+# 2. Realisez une analyse exploratoire des donnees.
+
+# 3. Preparez les donnees pour l'entrainement (encodage des variables, categorielle, separation des variables explicatives et de la variable cible , division en ensembles d'entrainement et de test,..)
+
+# 4. Entrainez un modele de regression lineaire multiple.
+# 5. Predisez le profil des entreprises a partir de plusieurs variables explicatives, telles que :
+
+ - R&D Spend(Depenses de recherche et developpement)
+ - Administration(Depenses administrative)
+ - Marketing Spend (Depenses marketing)
+ - State(Etat d'implantation de l'entreprise)
+
+6. Evaluez les performances du modele a l'aide de metriques telle que le R2
+
+"""
